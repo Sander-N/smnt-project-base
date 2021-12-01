@@ -2,7 +2,7 @@
 
 # _______________________ User overridable configuration _______________________
 
-PROJECT_NAME            ?= app-name
+PROJECT_NAME            ?= airplane-noise
 
 VERSION_MAJOR           ?= 1
 VERSION_MINOR           ?= 0
@@ -84,7 +84,7 @@ NODE_PLATFORM_DIR       := $(ZOO)/thinnect.node-platform
 
 # ______________ Build components - sources and includes _______________________
 
-SOURCES += smnt-mb-base-main.c
+SOURCES += airplane-main.c
 
 # Source code created for this project
 #INCLUDES += -I$(ROOT_DIR)/include
