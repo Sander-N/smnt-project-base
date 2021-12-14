@@ -114,7 +114,8 @@ CMSIS_CONFIG_DIR ?= $(ZOO)/thinnect.cmsis-freertos/$(MCU_ARCH)/config
 INCLUDES += \
     -I$(SILABS_SDKDIR)/hardware/kit/common/drivers \
     -I$(SILABS_SDKDIR)/platform/halconfig/inc/hal-config \
-    -I$(SILABS_SDKDIR)/platform/emlib/inc
+    -I$(SILABS_SDKDIR)/platform/emlib/inc \
+	-I$(SILABS_SDKDIR)/util/third_party/fatfs/inc
 
 SOURCES += \
     $(SILABS_SDKDIR)/hardware/kit/common/drivers/retargetserial.c \

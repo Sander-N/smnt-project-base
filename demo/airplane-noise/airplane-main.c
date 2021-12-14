@@ -34,6 +34,9 @@
 #include "SignatureArea.h"
 #include "DeviceSignature.h"
 
+#include "microsdconfig.h"
+#include "microsd.c"
+
 #include "loglevels.h"
 #define __MODUUL__ "main"
 #define __LOG_LEVEL__ (LOG_LEVEL_main & BASE_LOG_LEVEL)
@@ -51,14 +54,16 @@ void main_loop (void * arg)
  	basic_rtos_logger_setup();
 
 	debug1("main_loop");
+	MICROSD_Init();
+	debug1("Initialized");
 
 	for (;;)
 	{
 		// NOTE:
-		// If serial-logger starts getting unprintable characters change 
+		// If serial-logger starts getting unprintable characters change
 		// USE_TICKLESS_IDLE=1 to USE_TICKLESS_IDLE=0 in the Makefile.
 		//
-		osDelay(1000); //1 sec
+		osDelay(3000); //1 sec
 		if(annoy)
 		{
 			info1("\t\tNotice me!");
@@ -68,6 +73,13 @@ void main_loop (void * arg)
 		{
 			info1("Hello!");
 			annoy = true;
+		}
+		MICROSD_PowerOn();
+		int selected = MICROSD_Select();
+		if(selected == 1) {
+			info1("Successfully selected SD card: %u", selected);
+		} else {
+			info1("Timeout: %u", selected);
 		}
 	}
 }
@@ -92,7 +104,7 @@ int main()
     // Radio GPIO/PRS for LNA on some MGM12P
     // PLATFORM_RadioInit();
 	// GPIO_PinModeSet(gpioPortF, 6, gpioModePushPull, 1);
-    
+
 	// Must initialize kernel to allow creation of threads/mutexes etc
     osKernelInitialize();
 
